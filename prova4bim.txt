@@ -1,11 +1,11 @@
 #include <stdio.h>
 #include <string.h>
 
-// Definir as structs para celular
+
 struct Celular {
-    int nivel_bateria;    // Nível de bateria em %
-    int credito;          // Créditos disponíveis
-    char operadora[50];   // Nome da operadora
+    int nivel_bateria;    
+    int credito;         
+    char operadora[50];  
 };
 
 struct Mensagem {
@@ -15,7 +15,7 @@ struct Mensagem {
 
 struct Ligacao {
     char destinatario[50];
-    int duracao;  // duração em segundos
+    int duracao;  
 };
 
 struct Contato {
@@ -23,15 +23,14 @@ struct Contato {
     char telefone[15];
 };
 
-// Função para calcular o tempo de duração da bateria com base na porcentagem
 void verNivelBateria(struct Celular *celular) {
     printf("Nível de Bateria: %d%%\n", celular->nivel_bateria);
     printf("Tempo estimado de duração da bateria: %d minutos\n", celular->nivel_bateria * 2);
     printf("Pressione Enter para voltar ao menu principal...\n");
-    getchar();  // Espera o usuário pressionar Enter
+    getchar();
 }
 
-// Função para exibir as mensagens
+
 void verMensagens(struct Mensagem *mensagens, int qtd_mensagens) {
     if (qtd_mensagens == 0) {
         printf("Você não tem mensagens.\n");
@@ -44,30 +43,30 @@ void verMensagens(struct Mensagem *mensagens, int qtd_mensagens) {
         }
     }
     printf("Pressione Enter para voltar ao menu principal...\n");
-    getchar();  // Espera o usuário pressionar Enter
+    getchar();  
 }
 
-// Função para adicionar um contato à agenda
+
 void adicionarContato(struct Contato *agenda, int *qtd_contatos) {
-    if (*qtd_contatos < 10) {  // Limita a agenda a 10 contatos
+    if (*qtd_contatos < 10) { 
         printf("Digite o nome do contato: ");
         fgets(agenda[*qtd_contatos].nome, 50, stdin);
-        agenda[*qtd_contatos].nome[strcspn(agenda[*qtd_contatos].nome, "\n")] = '\0';  // Remove a quebra de linha
+        agenda[*qtd_contatos].nome[strcspn(agenda[*qtd_contatos].nome, "\n")] = '\0'; 
         printf("Digite o telefone do contato: ");
         fgets(agenda[*qtd_contatos].telefone, 15, stdin);
-        agenda[*qtd_contatos].telefone[strcspn(agenda[*qtd_contatos].telefone, "\n")] = '\0';  // Remove a quebra de linha
+        agenda[*qtd_contatos].telefone[strcspn(agenda[*qtd_contatos].telefone, "\n")] = '\0';  
         (*qtd_contatos)++;
         printf("Contato adicionado com sucesso!\n");
     } else {
         printf("Agenda cheia! Não é possível adicionar mais contatos.\n");
     }
     printf("Pressione Enter para voltar ao menu principal...\n");
-    getchar();  // Espera o usuário pressionar Enter
+    getchar();  
 }
 
-// Função para realizar uma ligação
+
 void realizarLigacao(struct Celular *celular, struct Ligacao *historico, int *qtd_ligacoes) {
-    if (celular->credito < 2) {  // Verifica se tem crédito suficiente para a ligação
+    if (celular->credito < 2) {  
         printf("Créditos insuficientes para realizar a ligação.\n");
         return;
     }
@@ -75,11 +74,11 @@ void realizarLigacao(struct Celular *celular, struct Ligacao *historico, int *qt
     char destinatario[50];
     printf("Digite o nome do destinatário da ligação: ");
     fgets(destinatario, 50, stdin);
-    destinatario[strcspn(destinatario, "\n")] = '\0';  // Remove a quebra de linha
+    destinatario[strcspn(destinatario, "\n")] = '\0';  
 
     // Registra a ligação no histórico
     strcpy(historico[*qtd_ligacoes].destinatario, destinatario);
-    historico[*qtd_ligacoes].duracao = 5;  // Duração fixa de 5 segundos
+    historico[*qtd_ligacoes].duracao = 5; 
     (*qtd_ligacoes)++;
 
     // Subtrai os créditos
@@ -87,26 +86,26 @@ void realizarLigacao(struct Celular *celular, struct Ligacao *historico, int *qt
     printf("Ligação realizada para %s. Duração: 5 segundos.\n", destinatario);
     printf("Créditos restantes: %d\n", celular->credito);
     printf("Pressione Enter para voltar ao menu principal...\n");
-    getchar();  // Espera o usuário pressionar Enter
+    getchar();
 }
 
 // Função para exibir os créditos disponíveis
 void verCreditos(struct Celular *celular) {
     printf("Créditos disponíveis: %d\n", celular->credito);
     printf("Você pode realizar %d ligações ou enviar %d mensagens.\n",
-           celular->credito / 2, celular->credito);  // Cálculo de ligações e mensagens possíveis
+           celular->credito / 2, celular->credito); 
     printf("Pressione Enter para voltar ao menu principal...\n");
-    getchar();  // Espera o usuário pressionar Enter
+    getchar(); 
 }
 
 // Função para exibir a operadora
 void verOperadora(struct Celular *celular) {
     printf("Operadora: %s\n", celular->operadora);
     printf("Pressione Enter para voltar ao menu principal...\n");
-    getchar();  // Espera o usuário pressionar Enter
+    getchar();  
 }
 
-// Função para o menu principal
+
 void menuPrincipal(struct Celular *celular, struct Mensagem *mensagens, int *qtd_mensagens,
                    struct Ligacao *historico, int *qtd_ligacoes, struct Contato *agenda, 
                    int *qtd_contatos) {
@@ -122,7 +121,7 @@ void menuPrincipal(struct Celular *celular, struct Mensagem *mensagens, int *qtd
         printf("0. Sair\n");
         printf("Escolha uma opção: ");
         scanf("%d", &opcao);
-        getchar();  // Limpar o buffer do teclado
+        getchar();  
 
         switch (opcao) {
             case 1:
@@ -142,7 +141,7 @@ void menuPrincipal(struct Celular *celular, struct Mensagem *mensagens, int *qtd
                 printf("Deseja adicionar um novo contato? (1 para sim, 0 para não): ");
                 int opcao_add;
                 scanf("%d", &opcao_add);
-                getchar();  // Limpar o buffer do teclado
+                getchar(); 
                 if (opcao_add == 1) {
                     adicionarContato(agenda, qtd_contatos);
                 }
@@ -163,9 +162,8 @@ void menuPrincipal(struct Celular *celular, struct Mensagem *mensagens, int *qtd
 }
 
 int main() {
-    // Inicialização dos dados
-    struct Celular celular = {100, 10, "Minha Operadora"};
-    struct Mensagem mensagens[10] = {{"João", "Olá, tudo bem?"}, {"Maria", "Bom dia!"}};
+    struct Celular celular = {100, 10, "TIM"};
+    struct Mensagem mensagens[10] = {{"Felype", "Olá, tudo bem?"}, {"Jordana", "Bom dia!"}};
     int qtd_mensagens = 2;
     struct Ligacao historico[10];
     int qtd_ligacoes = 0;
